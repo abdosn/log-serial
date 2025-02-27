@@ -2,7 +2,7 @@ import serial
 import sys
 from SerialList import serial_ports
 
-
+# added comment
 avaliblePorts = serial_ports()
 
 if len(avaliblePorts) == 0:
