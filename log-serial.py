@@ -1,7 +1,7 @@
 import serial
 import sys
 from SerialList import serial_ports
-import time
+from datetime import datetime
 # added comment
 avaliblePorts = serial_ports()
 
@@ -29,15 +29,11 @@ s = serial.Serial(avaliblePorts[indint-1] ,baud  )
 
 file = open('log.txt' , 'w')
 
-while 1:
-    time.sleep(3)
-    
+while 1:    
     serial_data = s.readline().decode('ascii','replace')
-    if 'ets' in serial_data:
-        file.write(f'\n########### \n #### time of reset : {time.time()} ###\n#########\n')
-        sys.stdout.write(f'\n########### \n #### time of reset : {time.time()} ###\n#########\n')
-    file.write(serial_data)
-    sys.stdout.write(serial_data)
+    timestamp = datetime.now().strftime("%d/%m/%Y, %H:%M:%S.%f")
+    file.write(timestamp + ' > ' + serial_data)
+    sys.stdout.write(timestamp + ' > ' + serial_data)
 
 
 
